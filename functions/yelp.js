@@ -25,9 +25,9 @@ exports.handler = async (event, context) => {
     // don't forget to add the yelp API key!
 
 
-    const response = await fetch(`https://api.yelp.com/v3/businesses/search?location=${event.queryStringParameters.search}`, {
+    const response = await fetch(`https://api.yelp.com/v3/businesses/search?location=${event.queryStringParameters.searchFilter}`, {
       headers: {
-        Authorization: `Bearer ${process.env.YELP_KEY}`,
+        'Authorization': `Bearer ${process.env.YELP_KEY}`,
       },
     }
     );
