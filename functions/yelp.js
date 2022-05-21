@@ -9,6 +9,7 @@ const headers = {
 };
 
 
+// eslint-disable-next-line no-unused-vars
 exports.handler = async (event, context) => {
   try {
     // grab the city, state, and country from the request's query parameters
