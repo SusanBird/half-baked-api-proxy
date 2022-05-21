@@ -1,4 +1,5 @@
-import { useState } from 'react';
+/* eslint-disable no-console */
+import { useState, useEffect } from 'react';
 import PokemonList from './PokemonList';
 import { getPokemons } from './services/fetch-utils';
 import Spinner from './Spinner';
@@ -8,20 +9,27 @@ export default function PokemonSearch() {
   const [pokemons, setPokemons] = useState([]);
   const [name, setName] = useState('pikachu');
   const [isLoading, setIsLoading] = useState(false);
-  
-  async function handlePokemonSubmit(e) {
-    e.preventDefault();
-      
-        // set the loading state to true
-        // use fetch to make a request to your netlify pokemon function. Be sure to pass the pokemon name as a query param in the URL
+
+  async function load() {
     setIsLoading(true);
     const data = await getPokemons(name);
-  
-        // put the jsonified data in state and set the loading state to false
     setPokemons(data.data.results);
     setIsLoading(false);
   }
-      
+
+  useEffect(() => {
+    load();
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function handlePokemonSubmit(e) {
+    e.preventDefault();
+    load();
+  }
+
+  console.log(pokemons);
+
   return (
     <section className='pokemon'>
       {/* make the fetch on submit */}
